@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Secret Coder : Testimonial</title>
+    <title>Codex Container : Testimonial</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/icon.png" rel="icon">
+    <link href="img/Codex Container.png" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -49,8 +49,8 @@
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
         <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-            <p class="m-0 fw-bold" style="font-size: 25px;"><img src="img/icon.png" alt="" height="50px">Secret<span
-                    style="color: #fb873f;">Coder</span></p>
+            <p class="m-0 fw-bold" style="font-size: 25px;"><img src="img/icon.png" alt="" height="50px">Codex<span
+                    style="color: #fb873f;">Container</span></p>
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
             style="border: none;">
@@ -61,13 +61,13 @@
                 <a href="index.html" class="nav-item nav-link active">Home</a>
                 <a href="about.html" class="nav-item nav-link">About</a>
                 <a href="courses.html" class="nav-item nav-link">Courses</a>
-                <div class="nav-item dropdown">
+                <!--<div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                     <div class="dropdown-menu fade-down m-0">
                         <a href="team.html" class="dropdown-item">Our Team</a>
                         <a href="testimonial.html" class="dropdown-item">Testimonial</a>
                     </div>
-                </div>
+                </div>-->
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
                 <a href="login.html" class="nav-item nav-link"><i class="fa fa-user"></i></a>
                 <a href="#" class="nav-item nav-link">
@@ -104,7 +104,7 @@
         <div class="container">
             <div class="text-center">
                 <h1 class=" bg-white text-center px-3" style="color: #fb873f;">Success stories</h1>
-                <p class="mb-5">Can Secret Coder courses help your career? Our learners tell us how.</p>
+                <p class="mb-5">Can Codex Container courses help your career? Our learners tell us how.</p>
             </div>
             <div class="owl-carousel testimonial-carousel position-relative">
                 <div class="testimonial-item text-center">
@@ -112,7 +112,7 @@
                         style="width: 80px; height: 80px;">
                     <h5 class="mb-0">Sarah K.</h5>
                     <div class="testimonial-text bg-light text-center p-4">
-                        <p class="mb-0">I stumbled upon Secret Coder while searching for free courses. The quality
+                        <p class="mb-0">I stumbled upon Codex Container while searching for free courses. The quality
                             surpassed my expectations! The content was rich, and the instructors were knowledgeable.
                             I've already recommended it to my friends.</p>
                     </div>
@@ -167,9 +167,9 @@
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <h4 class="text-white mb-3">Contact</h4>
-                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, Bangalore, Karnataka</p>
-                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+91 8683045908</p>
-                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>secretcoder@gmail.com</p>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, Patna, Bihar</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+91 7258852660</p>
+                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>CodexContainer@gmail.com</p>
                     <div class="d-flex pt-2">
                         <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
                         <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
@@ -187,7 +187,7 @@
                                 placeholder="Your email" required>
                             <button type="submit"
                                 class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2"><a
-                                    href="mailto:keertidvcorai@gmail.com">Subscribe</a></button>
+                                    href="mailto:riteshkumar6022@gmail.com">Subscribe</a></button>
                         </form>
                     </div>
                 </div>
@@ -197,7 +197,7 @@
             <div class="copyright">
                 <div class="row">
                     <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        &copy; <a class="border-bottom" href="index.html">Secret Coder</a>, All Right Reserved.
+                        &copy; <a class="border-bottom" href="index.html">Codex Container</a>, All Right Reserved.
 
                     </div>
                 </div>
@@ -221,6 +221,16 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <script>
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (!user) {
+            window.location.href = "login.html";
+          }
+        });
+      </script>
+      
+
 </body>
 
 </html>
