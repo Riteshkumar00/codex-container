@@ -3,8 +3,9 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Codex Container : Signup</title>
+  <title>Codex Container : SignUp</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
   <link href="img/Codex Container.png" rel="icon">
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -13,6 +14,10 @@
   <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+  <meta name="google-signin-client_id" content="710571866354-hapsq9cdi34irf3558l8j04cpnv89ll2.apps.googleusercontent.com">
 </head>
 
 <body>
@@ -20,7 +25,8 @@
   <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
     <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
       <p class="m-0 fw-bold" style="font-size: 25px;">
-        <img src="img/icon.png" alt="" height="50px">Codex<span style="color: #fb873f;">Container</span>
+        <img src="img/icon.png" alt="" height="50px">
+        Codex<span style="color: #fb873f;">Container</span>
       </p>
     </a>
     <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" style="border: none;">
@@ -43,11 +49,11 @@
     <div class="container py-5">
       <div class="row justify-content-center">
         <div class="col-lg-10 text-center">
-          <h1 class="display-3 text-white animated slideInDown">Signup</h1>
+          <h1 class="display-3 text-white animated slideInDown">Sign Up</h1>
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb justify-content-center">
               <li class="breadcrumb-item"><a class="text-white" href="index.html">Home</a></li>
-              <li class="breadcrumb-item text-white active" aria-current="page">Signup</li>
+              <li class="breadcrumb-item text-white active" aria-current="page">Sign Up</li>
             </ol>
           </nav>
         </div>
@@ -62,13 +68,9 @@
       <div class="row g-5 justify-content-center">
         <!-- Manual Signup Form -->
         <div class="col-lg-6">
-          <form id="signupForm" class="shadow p-4 bg-white rounded">
+          <form class="shadow p-4 bg-white rounded" onsubmit="signUpWithEmail(event)">
             <div class="text-center">
-              <h2 class="mb-4">Signup with Email</h2>
-            </div>
-            <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="username" placeholder="Username" required>
-              <label for="username">Username</label>
+              <h2 class="mb-4">Sign Up with Email</h2>
             </div>
             <div class="form-floating mb-3">
               <input type="email" class="form-control" id="email" placeholder="Email Address" required>
@@ -78,19 +80,29 @@
               <input type="password" class="form-control" id="password" placeholder="Password" required>
               <label for="password">Password</label>
             </div>
-            <button type="submit" class="btn btn-primary w-100 py-2">Signup</button>
+            <button type="submit" class="btn btn-primary w-100 py-2">Sign Up</button>
+
             <div class="text-center mt-3">
               <p>Already have an account? <a href="login.html">Login</a></p>
             </div>
           </form>
         </div>
 
-        <!-- Google Sign-Up -->
+        <!-- Google & Phone Sign-Up -->
         <div class="col-lg-6 d-flex flex-column align-items-center justify-content-center">
-          <h2 class="mb-3">Or Signup with Google</h2>
-          <button id="googleSignupBtn" class="btn btn-danger w-100 py-2">
-            <i class="fab fa-google me-2"></i> Signup with Google
+          <h2 class="mb-3">Or Sign Up with Google</h2>
+          <button onclick="signUpWithGoogle()" class="btn btn-danger text-white w-100 py-2 mb-3">
+            <i class="fab fa-google me-2"></i> Sign Up with Google
           </button>
+
+          <h4 class="mb-2">Or Sign Up with Phone</h4>
+          <div class="w-100 mb-2">
+            <input type="tel" id="phoneNumber" class="form-control mb-2" placeholder="+91XXXXXXXXXX" />
+            <div id="recaptcha-container" class="mb-2"></div>
+            <button onclick="sendOTP()" class="btn btn-primary w-100 py-2 mb-2">Send OTP</button>
+            <input type="text" id="otpCode" class="form-control mb-2" placeholder="Enter OTP" />
+            <button onclick="verifyOTP()" class="btn btn-success w-100 py-2">Verify OTP</button>
+          </div>
         </div>
       </div>
     </div>
@@ -117,7 +129,6 @@
         </div>
         <div class="col-lg-4 col-md-6">
           <h4 class="text-white mb-3">Subscribe</h4>
-          <p>Subscribe now and join our growing community of learners!</p>
           <form class="position-relative mx-auto" style="max-width: 400px;">
             <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="email" placeholder="Your email">
             <button type="submit" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">Subscribe</button>
@@ -128,10 +139,9 @@
   </div>
   <!-- Footer End -->
 
-  <!-- Back to Top -->
   <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 
-  <!-- JS Libraries -->
+  <!-- Scripts -->
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="lib/wow/wow.min.js"></script>
@@ -140,61 +150,97 @@
   <script src="lib/owlcarousel/owl.carousel.min.js"></script>
   <script src="js/main.js"></script>
 
-  <!-- Firebase Auth -->
-  <script type="module">
-    // Import Firebase
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-    import {
-      getAuth,
-      createUserWithEmailAndPassword,
-      signInWithEmailAndPassword,
-      GoogleAuthProvider,
-      signInWithPopup
-    } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-
+  <!-- Firebase Signup Logic -->
+  <script>
     const firebaseConfig = {
       apiKey: "AIzaSyD--1XDaixtr_9rWYc0fIPZX0LIs74dueE",
       authDomain: "codex-container.firebaseapp.com",
       projectId: "codex-container",
       storageBucket: "codex-container.appspot.com",
-      messagingSenderId: "710571866354",
-      appId: "1:710571866354:web:your-app-id"
+      messagingSenderId: "214270522769",
+      appId: "1:214270522769:web:yourappid"
     };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+    firebase.initializeApp(firebaseConfig);
 
-    // Email Signup
-    document.getElementById("signupForm").addEventListener("submit", (e) => {
-      e.preventDefault();
+    function signUpWithGoogle() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithPopup(provider)
+        .then((result) => {
+          const user = result.user;
+          alert("Sign up successful!");
+          window.location.href = "index.html";
+        })
+        .catch((error) => {
+          alert("Error: " + error.message);
+        });
+    }
+
+    function signUpWithEmail(event) {
+      event.preventDefault();
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
 
-      createUserWithEmailAndPassword(auth, email, password)
+      firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
-          alert("Signup successful!");
+          alert("Sign up successful!");
           window.location.href = "index.html";
         })
         .catch((error) => {
-          alert("Signup error: " + error.message);
+          alert("Error: " + error.message);
         });
-    });
+    }
 
-    // Google Signup
-    document.getElementById("googleSignupBtn").addEventListener("click", () => {
-      const provider = new GoogleAuthProvider();
-      signInWithPopup(auth, provider)
+    // Phone Sign-Up Logic
+    let confirmationResult;
+
+    function sendOTP() {
+      const phoneNumber = document.getElementById("phoneNumber").value;
+      if (!phoneNumber) {
+        alert("Please enter a phone number.");
+        return;
+      }
+
+      window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+        size: 'invisible',
+        callback: function (response) {
+          sendCode(phoneNumber);
+        }
+      });
+
+      sendCode(phoneNumber);
+    }
+
+    function sendCode(phoneNumber) {
+      const appVerifier = window.recaptchaVerifier;
+
+      firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+        .then((result) => {
+          confirmationResult = result;
+          alert("OTP sent!");
+        })
+        .catch((error) => {
+          alert("Error sending OTP: " + error.message);
+        });
+    }
+
+    function verifyOTP() {
+      const otp = document.getElementById("otpCode").value;
+      if (!otp || !confirmationResult) {
+        alert("Please enter the OTP.");
+        return;
+      }
+
+      confirmationResult.confirm(otp)
         .then((result) => {
           const user = result.user;
-          alert("Signed up with Google: " + user.displayName);
+          alert("Phone sign-up successful!");
           window.location.href = "index.html";
         })
         .catch((error) => {
-          alert("Google signup error: " + error.message);
+          alert("OTP verification failed: " + error.message);
         });
-    });
+    }
   </script>
-
 </body>
-
 </html>
