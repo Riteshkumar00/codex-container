@@ -43,6 +43,9 @@ Before you begin, ensure you have the following prerequisites:
 - CSS
 - Bootstrap 5
 - JavaScript
+- Jenkins
+- AWS
+- Docker
 
 📱 Moreover, I've ensured that the website is fully responsive on all screens, making it accessible and user-friendly across various devices. 📱💡
 
