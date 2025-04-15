@@ -664,6 +664,31 @@
       
       
 
+
+      <script>
+        // Detect login state
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            document.getElementById("logoutSection").style.display = "block";
+            console.log("User is logged in:", user.email || user.phoneNumber || "Google user");
+          } else {
+            document.getElementById("logoutSection").style.display = "none";
+          }
+        });
+      
+        // Logout function
+        function logout() {
+          firebase.auth().signOut().then(() => {
+            alert("You have been logged out.");
+            window.location.reload();
+          }).catch((error) => {
+            console.error("Logout error:", error.message);
+            alert("Error logging out: " + error.message);
+          });
+        }
+      </script>
+      
+
 </body>
 
 </html>

@@ -1,177 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>MCQ Practice - Codex Container</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <link href="img/favicon.ico" rel="icon">
+  <meta charset="UTF-8" />
+  <title>MCQ Practice - Codex Container</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="img/favicon.ico" rel="icon" />
 
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet" />
 
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
 
-    <!-- Bootstrap & Custom CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+  <!-- Bootstrap & Custom CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet" />
 </head>
 <body>
+  <!-- Navbar Start -->
+  <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+    <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+      <p class="m-0 fw-bold" style="font-size: 25px;">
+        <img src="img/icon.png" alt="" height="50px" />Codex<span style="color: #fb873f;">Container</span>
+      </p>
+    </a>
+    <button class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" style="border: none;">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <div class="navbar-nav ms-auto p-4 p-lg-0">
+        <a href="index.html" class="nav-item nav-link">Home</a>
+        <a href="about.html" class="nav-item nav-link active">About</a>
+        <a href="courses.html" class="nav-item nav-link">Courses</a>
+        <div class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+          <div class="dropdown-menu fade-down m-0">
+            <a href="mcq.html" class="dropdown-item">MCQ</a>
+            <a href="login.html" class="dropdown-item">Login</a>
+            <a href="signup.html" class="dropdown-item">Signup</a>
+          </div>
+        </div>
+        <a href="contact.html" class="nav-item nav-link">Contact</a>
 
-    <!-- Navbar Start -->
-    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-        <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-            <p class="m-0 fw-bold" style="font-size: 25px;">
-                <img src="img/icon.png" alt="" height="50px">Codex<span style="color: #fb873f;">Container</span>
-            </p>
+        <!-- 🔥 User Info + Logout -->
+        <div class="d-flex align-items-center px-4">
+          <span id="userEmail" class="me-3 fw-bold text-primary"></span>
+          <div id="logoutSection" style="display: none;">
+            <button onclick="logout()" class="btn btn-danger btn-sm">Logout</button>
+          </div>
+          <a href="login.html" id="loginIcon" class="ms-3 text-dark"><i class="fa fa-user"></i></a>
+        </div>
+
+        <a href="#" class="nav-item nav-link">
+          <div id="google_translate_element"></div>
         </a>
-        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" style="border: none;">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="index.html" class="nav-item nav-link active">Home</a>
-                <a href="about.html" class="nav-item nav-link">About</a>
-                <a href="courses.html" class="nav-item nav-link">Courses</a>
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                    <div class="dropdown-menu fade-down m-0">
-                        <a href="signup.html" class="dropdown-item">Signup</a>
-                        <a href="login.html" class="dropdown-item">Login</a>
-                        <a href="mcq.html" class="dropdown-item">MCQ</a>
-                    </div>
-                </div>
-                <a href="contact.html" class="nav-item nav-link">Contact</a>
-                <a href="login.html" class="nav-item nav-link"><i class="fa fa-user"></i></a>
-                <a href="#" class="nav-item nav-link"><div id="google_translate_element"></div></a>
-            </div>
-        </div>
-    </nav>
-    <!-- Navbar End -->
-
-    <!-- MCQ Section -->
-    <div class="container py-5">
-        <h2 class="text-center mb-4" style="color: #fb873f;">Test Your Skills</h2>
-        <form id="quizForm">
-            <div class="row g-4">
-
-                <!-- Sample MCQ -->
-                <div class="col-12">
-                    <h5>1. What does AWS stand for?</h5>
-                    <div class="form-check"><input class="form-check-input" type="radio" name="q1" value="a"><label class="form-check-label">Amazon Web Services</label></div>
-                    <div class="form-check"><input class="form-check-input" type="radio" name="q1" value="b"><label class="form-check-label">Advanced Web Security</label></div>
-                    <div class="form-check"><input class="form-check-input" type="radio" name="q1" value="c"><label class="form-check-label">Applied Web Systems</label></div>
-                </div>
-
-                <div class="col-12">
-                    <h5>2. Which SQL command is used to extract data from a database?</h5>
-                    <div class="form-check"><input class="form-check-input" type="radio" name="q2" value="a"><label class="form-check-label">GET</label></div>
-                    <div class="form-check"><input class="form-check-input" type="radio" name="q2" value="b"><label class="form-check-label">EXTRACT</label></div>
-                    <div class="form-check"><input class="form-check-input" type="radio" name="q2" value="c"><label class="form-check-label">SELECT</label></div>
-                </div>
-
-                <!-- Add more MCQs here -->
-
-                <div class="col-12 text-center mt-4">
-                    <button type="button" onclick="checkAnswers()" class="btn btn-primary px-4 py-2">Submit</button>
-                </div>
-            </div>
-        </form>
-
-        <div id="result" class="text-center mt-4 fs-5 fw-bold text-success"></div>
+      </div>
     </div>
+  </nav>
+  <!-- Navbar End -->
 
-    <!-- Footer Start -->
-    <div class="container-fluid text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s" style="background: #002244">
-    <div class="container py-5">
-        <div class="row g-5">
-            <div class="col-lg-4 col-md-6">
-                <h4 class="text-white mb-3">Quick Link</h4>
-                <p><a class="text-light text-decoration-none" href="about.html">About Us</a></p>
-                <p><a class="text-light text-decoration-none" href="contact.html">Contact Us</a></p>
-                <p><a class="text-light text-decoration-none" href="#">Privacy Policy</a></p>
-                <p><a class="text-light text-decoration-none" href="#">Terms & Condition</a></p>
-                <p><a class="text-light text-decoration-none" href="#">FAQs & Help</a></p>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <h4 class="text-white mb-3">Contact</h4>
-                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, Patna, Bihar</p>
-                <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+91 7258852660</p>
-                <p class="mb-2"><i class="fa fa-envelope me-3"></i>CodexContainer@gmail.com</p>
-                <div class="d-flex pt-2">
-                    <a class="btn btn-outline-light btn-social" href="#"><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-outline-light btn-social" href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-outline-light btn-social" href="#"><i class="fab fa-youtube"></i></a>
-                    <a class="btn btn-outline-light btn-social" href="#"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <h4 class="text-white mb-3">Subscribe to our Newsletter</h4>
-                <p>Subscribe now and join our growing community of learners committed to lifelong education!</p>
-                <div class="position-relative mx-auto" style="max-width: 400px;">
-                    <form action="#">
-                        <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="email" placeholder="Your email" required>
-                        <button type="submit" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">
-                            <a href="mailto:riteshkumar6022@gmail.com" class="text-white text-decoration-none">Subscribe</a>
-                        </button>
-                    </form>
-                </div>
-            </div>
+  <!-- MCQ Section -->
+  <div class="container py-5">
+    <h2 class="text-center mb-4" style="color: #fb873f;">Test Your Skills</h2>
+    <form id="quizForm">
+      <div class="row g-4">
+        <!-- Sample MCQ -->
+        <div class="col-12">
+          <h5>1. What does AWS stand for?</h5>
+          <div class="form-check"><input class="form-check-input" type="radio" name="q1" value="a" /><label class="form-check-label">Amazon Web Services</label></div>
+          <div class="form-check"><input class="form-check-input" type="radio" name="q1" value="b" /><label class="form-check-label">Advanced Web Security</label></div>
+          <div class="form-check"><input class="form-check-input" type="radio" name="q1" value="c" /><label class="form-check-label">Applied Web Systems</label></div>
         </div>
-    </div>
-    <div class="container">
-        <div class="copyright">
-            <div class="row">
-                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                    &copy; <a href="index.html" style="color: #fb873f; text-decoration: underline;">Codex Container</a>, All Right Reserved.
-                </div>
-            </div>
+
+        <div class="col-12">
+          <h5>2. Which SQL command is used to extract data from a database?</h5>
+          <div class="form-check"><input class="form-check-input" type="radio" name="q2" value="a" /><label class="form-check-label">GET</label></div>
+          <div class="form-check"><input class="form-check-input" type="radio" name="q2" value="b" /><label class="form-check-label">EXTRACT</label></div>
+          <div class="form-check"><input class="form-check-input" type="radio" name="q2" value="c" /><label class="form-check-label">SELECT</label></div>
         </div>
-    </div>
-    
-    
-</div>
-<!-- Footer End -->
 
+        <div class="col-12 text-center mt-4">
+          <button type="button" onclick="checkAnswers()" class="btn btn-primary px-4 py-2">Submit</button>
+        </div>
+      </div>
+    </form>
 
+    <div id="result" class="text-center mt-4 fs-5 fw-bold text-success"></div>
+  </div>
 
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-
-    <!-- JS Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
-
-    <!-- MCQ JS -->
-    <script>
-        function checkAnswers() {
-            const answers = {
-                q1: "a",
-                q2: "c"
-                // Add more correct answers here
-            };
-
-            let score = 0;
-            let total = Object.keys(answers).length;
-
-            for (let q in answers) {
-                const selected = document.querySelector(`input[name="${q}"]:checked`);
-                if (selected && selected.value === answers[q]) {
-                    score++;
-                }
-            }
-
-            document.getElementById("result").textContent = `You scored ${score} out of ${total}!`;
-        }
-    </script>
-
-<!-- Sign In Modal -->
-<div class="modal fade" id="signinModal" tabindex="-1" aria-labelledby="signinModalLabel" aria-hidden="true">
+  <!-- Sign In Modal -->
+  <div class="modal fade" id="signinModal" tabindex="-1" aria-labelledby="signinModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content" style="background-color: #002244; color: white;">
         <div class="modal-header border-0">
@@ -184,45 +102,128 @@
       </div>
     </div>
   </div>
-  
+
+   <!-- Footer Start -->
+   <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container py-5">
+        <div class="row g-5">
+            <div class="col-lg-4 col-md-6">
+                <h4 class="text-white mb-3">Quick Link</h4>
+                <p><a class="text-light" href="about.html">About Us</a></p>
+                <p><a class="text-light" href="contact.html">Contact Us</a></p>
+                <p><a class="text-light" href="">Privacy Policy</a></p>
+                <p><a class="text-light" href="">Terms & Condition</a></p>
+                <p><a class="text-light" href="">FAQs & Help</a></p>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <h4 class="text-white mb-3">Contact</h4>
+                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, Patna, Bihar</p>
+                <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+91 7258852660</p>
+                <p class="mb-2"><i class="fa fa-envelope me-3"></i>CodexContainer@gmail.com</p>
+                <div class="d-flex pt-2">
+                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
+                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <h4 class="text-white mb-3">Subscribe to our Newsletter</h4>
+                <p>Subscribe now and join our growing community of learners committed to lifelong education! </p>
+                <div class="position-relative mx-auto" style="max-width: 400px;">
+                    <form action="#">
+                        <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="email"
+                            placeholder="Your email" required>
+                        <button type="submit"
+                            class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2"><a
+                                href="mailto:riteshkumar6022@gmail.com">Subscribe</a></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="copyright">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    &copy; <a class="border-bottom" href="index.html">Codex Container</a>, All Right Reserved.
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer End -->
 
 
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/main.js"></script>
 
+  <!-- MCQ Logic -->
   <script>
-    const isLoggedIn = false; // Simulated login status
-  
-    const showModal = () => {
-      const modal = new bootstrap.Modal(document.getElementById('signinModal'), {
-        backdrop: 'static', // prevents closing by clicking outside
-        keyboard: false     // prevents closing with Esc key
-      });
-      modal.show();
-    };
-  
-    // Show modal if not logged in
-    if (!isLoggedIn) {
-      window.addEventListener('load', showModal);
+    function checkAnswers() {
+      const answers = {
+        q1: "a",
+        q2: "c"
+      };
+      let score = 0;
+      let total = Object.keys(answers).length;
+
+      for (let q in answers) {
+        const selected = document.querySelector(`input[name="${q}"]:checked`);
+        if (selected && selected.value === answers[q]) {
+          score++;
+        }
+      }
+
+      document.getElementById("result").textContent = `You scored ${score} out of ${total}!`;
     }
   </script>
-  
 
+  <!-- Firebase Auth -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyD--1XDaixtr_9rWYc0fIPZX0LIs74dueE",
+      authDomain: "codex-container.firebaseapp.com",
+      projectId: "codex-container",
+      storageBucket: "codex-container.appspot.com",
+      messagingSenderId: "710571866354",
+      appId: "1:710571866354:web:b35b3e3fdadfcb5b315e62",
+      measurementId: "G-YBXX3W90W9"
+    };
+    firebase.initializeApp(firebaseConfig);
 
-  
-  <!-- Bootstrap JS (make sure this is present!) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  
-  <!-- Sign In Modal Trigger Script -->
-  <!--<script>
-    const isLoggedIn = false; // Replace with your actual login status logic
-    window.addEventListener('DOMContentLoaded', () => {
-      if (!isLoggedIn) {
-        const modal = new bootstrap.Modal(document.getElementById('signinModal'));
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        document.getElementById("logoutSection").style.display = "block";
+        document.getElementById("loginIcon").style.display = "none";
+        document.getElementById("userEmail").textContent = user.displayName || user.email || "User";
+      } else {
+        document.getElementById("logoutSection").style.display = "none";
+        document.getElementById("loginIcon").style.display = "inline-block";
+        document.getElementById("userEmail").textContent = "";
+
+        // Not logged in, show modal
+        const modal = new bootstrap.Modal(document.getElementById('signinModal'), {
+          backdrop: 'static',
+          keyboard: false
+        });
         modal.show();
       }
     });
-  </script>-->
-  
-  
-  </body>
-  </html>
-  
+
+    function logout() {
+      firebase.auth().signOut().then(() => {
+        window.location.href = "index.html"; // Redirect to home
+      }).catch((error) => {
+        alert("Logout error: " + error.message);
+      });
+    }
+  </script>
+</body>
+</html>
