@@ -107,12 +107,17 @@
           </form>
         </div>
 
-        <!-- Google & Phone Sign-In -->
+        <!-- Google & Phone & GitHub Sign-In -->
         <div class="col-lg-6 d-flex flex-column align-items-center justify-content-center">
-          <h2 class="mb-3">Or Login with Google</h2>
+          <h2 class="mb-3">Or Login with Google or GitHub</h2>
           <button onclick="signInWithGoogle()" class="btn btn-danger text-white w-100 py-2 mb-3">
             <i class="fab fa-google me-2"></i> Sign in with Google
           </button>
+
+          <button onclick="signInWithGitHub()" class="btn btn-dark text-white w-100 py-2 mb-3">
+            <i class="fab fa-github me-2"></i> Sign in with GitHub
+          </button>
+          
 
           <h4 class="mb-2">Or Login with Phone</h4>
           <div class="w-100 mb-2">
@@ -236,10 +241,26 @@
         });
     }
 
+    // Sign-in with GitHub
+function signInWithGitHub() {
+  const provider = new firebase.auth.GithubAuthProvider();
+  firebase.auth().signInWithPopup(provider)
+    .then((result) => {
+      const user = result.user;
+      console.log("User logged in with GitHub:", user);
+      window.location.href = "contact.html"; // Redirect to home or dashboard
+    })
+    .catch((error) => {
+      console.error("Error logging in with GitHub:", error.message);
+      alert("GitHub login error: " + error.message);
+    });
+}
+
+
     // Forgot password logic (optional)
     function forgotPassword() {
-  window.location.href = "forgot-password.html";
-}
+      window.location.href = "forgot-password.html";
+    }
 
 
 

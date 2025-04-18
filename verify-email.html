@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Verify Your Email</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body class="d-flex justify-content-center align-items-center vh-100 bg-light">
+  <div class="text-center p-5 shadow bg-white rounded">
+    <h2 class="mb-3 text-primary">Verify Your Email</h2>
+    <p>We’ve sent a verification link to your email. Please check your inbox and click the link to continue.</p>
+    <p class="text-muted">Didn’t get the email? <a href="#" onclick="resendEmailVerification()">Resend</a></p>
+    <div class="mt-3">
+        <a href="login.html" class="btn btn-primary me-2">Back to Login</a>
+        <a href="index.html" class="btn btn-primary">Back to Home</a>
+    </div>
+      
+      
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyD--1XDaixtr_9rWYc0fIPZX0LIs74dueE",
+      authDomain: "codex-container.firebaseapp.com",
+      projectId: "codex-container",
+      storageBucket: "codex-container.appspot.com",
+      messagingSenderId: "214270522769",
+      appId: "1:214270522769:web:yourappid"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    function resendEmailVerification() {
+      const user = firebase.auth().currentUser;
+      if (user && !user.emailVerified) {
+        user.sendEmailVerification()
+          .then(() => {
+            alert("Verification email sent again!");
+          })
+          .catch((error) => {
+            alert("Error: " + error.message);
+          });
+      }
+    }
+  </script>
+</body>
+</html>

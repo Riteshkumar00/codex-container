@@ -51,10 +51,16 @@
                 <a href="courses.html" class="nav-item nav-link">Courses</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                    <div class="dropdown-menu fade-down m-0">
+                    <!-- <div class="dropdown-menu fade-down m-0">
                         <a href="mcq.html" class="dropdown-item">MCQ</a>
                         <a href="login.html" class="dropdown-item">Login</a>
                         <a href="signup.html" class="dropdown-item">Signup</a>
+                    </div> -->
+
+                    <div class="dropdown-menu fade-down m-0">
+                        <a href="mcq.html" class="dropdown-item">MCQ</a>
+                        <a href="login.html" class="dropdown-item" id="loginLink">Login</a>
+                        <a href="signup.html" class="dropdown-item" id="signupLink">Signup</a>
                     </div>
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
@@ -231,7 +237,7 @@
     <!-- Firebase Auth -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script>
+    <!-- <script>
         const firebaseConfig = {
       apiKey: "AIzaSyD--1XDaixtr_9rWYc0fIPZX0LIs74dueE",
       authDomain: "codex-container.firebaseapp.com",
@@ -263,7 +269,60 @@
                 alert("Logout error: " + error.message);
             });
         }
-    </script>
+    </script> -->
+
+
+    <!-- Firebase Auth -->
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyD--1XDaixtr_9rWYc0fIPZX0LIs74dueE",
+    authDomain: "codex-container.firebaseapp.com",
+    projectId: "codex-container",
+    storageBucket: "codex-container.appspot.com",
+    messagingSenderId: "710571866354",
+    appId: "1:710571866354:web:b35b3e3fdadfcb5b315e62",
+    measurementId: "G-YBXX3W90W9"
+  };
+  firebase.initializeApp(firebaseConfig);
+
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      // ✅ User is logged in
+      document.getElementById("logoutSection").style.display = "block";
+      document.getElementById("loginIcon").style.display = "none";
+      document.getElementById("userEmail").textContent = user.displayName || user.email || "User";
+
+      // ✅ Hide Login/Signup
+      const loginLink = document.getElementById("loginLink");
+      const signupLink = document.getElementById("signupLink");
+      if (loginLink) loginLink.style.display = "none";
+      if (signupLink) signupLink.style.display = "none";
+    } else {
+      // ❌ Not logged in
+      document.getElementById("logoutSection").style.display = "none";
+      document.getElementById("loginIcon").style.display = "inline-block";
+      document.getElementById("userEmail").textContent = "";
+
+      const loginLink = document.getElementById("loginLink");
+      const signupLink = document.getElementById("signupLink");
+      if (loginLink) loginLink.style.display = "block";
+      if (signupLink) signupLink.style.display = "block";
+
+      window.location.href = "login.html";
+    }
+  });
+
+  function logout() {
+    firebase.auth().signOut().then(() => {
+      alert("You have been logged out.");
+      window.location.href = "login.html";
+    }).catch((error) => {
+      alert("Logout error: " + error.message);
+      console.error("Logout error:", error.message);
+    });
+  }
+</script>
+
 
 </body>
 </html>

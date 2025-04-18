@@ -104,12 +104,17 @@
           </form>
         </div>
 
-        <!-- Google & Phone Sign-Up -->
+        <!-- Google & Phone Sign-Up & GitHub-->
         <div class="col-lg-6 d-flex flex-column align-items-center justify-content-center">
           <h2 class="mb-3">Or Sign Up with Google</h2>
           <button onclick="signUpWithGoogle()" class="btn btn-danger text-white w-100 py-2 mb-3">
             <i class="fab fa-google me-2"></i> Sign Up with Google
           </button>
+
+          <button onclick="signUpWithGithub()" class="btn btn-dark text-white w-100 py-2 mb-3">
+            <i class="fab fa-github me-2"></i> Sign Up with GitHub
+          </button>
+          
 
           <h4 class="mb-2">Or Sign Up with Phone</h4>
           <div class="w-100 mb-2">
@@ -202,6 +207,7 @@
 
     firebase.initializeApp(firebaseConfig);
 
+    // Google Signup Function Code
     function signUpWithGoogle() {
       const provider = new firebase.auth.GoogleAuthProvider();
       firebase.auth().signInWithPopup(provider)
@@ -215,19 +221,42 @@
         });
     }
 
+    // GitHub Signup Function Code
+    function signUpWithGithub() {
+  const provider = new firebase.auth.GithubAuthProvider();
+
+  firebase.auth().signInWithPopup(provider)
+    .then((result) => {
+      const user = result.user;
+      alert("GitHub sign-up successful!");
+      window.location.href = "index.html";
+    })
+    .catch((error) => {
+      alert("GitHub sign-up failed: " + error.message);
+    });
+}
+
+// Email Signup Function Code
     function signUpWithEmail(event) {
       event.preventDefault();
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
 
       firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-          alert("Sign up successful!");
-          window.location.href = "index.html";
-        })
-        .catch((error) => {
-          alert("Error: " + error.message);
-        });
+  .then((userCredential) => {
+    const user = userCredential.user;
+
+    // ✅ Send verification email
+    user.sendEmailVerification()
+      .then(() => {
+        alert("Signup successful! A verification email has been sent to your email address. Please verify to continue.");
+        window.location.href = "verify-email.html"; // Optional
+      });
+
+  }).catch((error) => {
+    alert("Error: " + error.message);
+  });
+
     }
 
     // Phone Sign-Up Logic

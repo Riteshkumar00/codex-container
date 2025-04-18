@@ -58,11 +58,13 @@
         <a href="courses.html" class="nav-item nav-link">Courses</a>
         <div class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-          <div class="dropdown-menu fade-down m-0">
-            <a href="mcq.html" class="dropdown-item">MCQ</a>
-            <a href="login.html" class="dropdown-item">Login</a>
-            <a href="signup.html" class="dropdown-item">Signup</a>
-          </div>
+<!-- Inside Navbar -->
+<div class="dropdown-menu fade-down m-0">
+  <a href="mcq.html" class="dropdown-item">MCQ</a>
+  <a href="login.html" class="dropdown-item" id="loginLink">Login</a>
+  <a href="signup.html" class="dropdown-item" id="signupLink">Signup</a>
+</div>
+
         </div>
         <a href="contact.html" class="nav-item nav-link active">Contact</a>
       </div>
@@ -233,29 +235,41 @@
   <script src="lib/owlcarousel/owl.carousel.min.js"></script>
   <script src="js/main.js"></script>
 
-  <!-- Auth Handling Script -->
-  <script>
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        document.getElementById("logoutSection").style.display = "block";
-        document.getElementById("userEmail").textContent = user.displayName || user.email || "User";
+<!-- Auth Handling Script -->
+<script>
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      // ✅ Show user info + logout
+      document.getElementById("logoutSection").style.display = "block";
+      document.getElementById("userEmail").textContent = user.displayName || user.email || "User";
 
-      } else {
-        document.getElementById("logoutSection").style.display = "none";
-        document.getElementById("userEmail").textContent = "";
-        window.location.href = "login.html";
-      }
-    });
+      // ✅ Hide Login/Signup when user is logged in
+      document.getElementById("loginLink").style.display = "none";
+      document.getElementById("signupLink").style.display = "none";
 
-    function logout() {
-      firebase.auth().signOut().then(() => {
-        alert("You have been logged out.");
-        window.location.href = "login.html";
-      }).catch((error) => {
-        alert("Error logging out: " + error.message);
-        console.error("Logout error:", error.message);
-      });
+    } else {
+      // ✅ Hide logout section
+      document.getElementById("logoutSection").style.display = "none";
+      document.getElementById("userEmail").textContent = "";
+
+      // ✅ Show Login/Signup if not logged in
+      document.getElementById("loginLink").style.display = "block";
+      document.getElementById("signupLink").style.display = "block";
+
+      window.location.href = "login.html";
     }
-  </script>
+  });
+
+  function logout() {
+    firebase.auth().signOut().then(() => {
+      alert("You have been logged out.");
+      window.location.href = "login.html";
+    }).catch((error) => {
+      alert("Error logging out: " + error.message);
+      console.error("Logout error:", error.message);
+    });
+  }
+</script>
+
 </body>
 </html>
