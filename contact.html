@@ -56,6 +56,7 @@
         <a href="index.html" class="nav-item nav-link">Home</a>
         <a href="about.html" class="nav-item nav-link">About</a>
         <a href="courses.html" class="nav-item nav-link">Courses</a>
+        <a href="contact.html" class="nav-item nav-link active">Contact</a>
         <div class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
 <!-- Inside Navbar -->
@@ -63,10 +64,12 @@
   <a href="mcq.html" class="dropdown-item">MCQ</a>
   <a href="login.html" class="dropdown-item" id="loginLink">Login</a>
   <a href="signup.html" class="dropdown-item" id="signupLink">Signup</a>
+  <!-- These show only when user is logged in -->
+  <a href="profile.html" class="dropdown-item d-none" id="profileLink">Profile</a>
+  <a href="change-password.html" class="dropdown-item d-none" id="changePasswordLink">Change Password</a>
 </div>
 
         </div>
-        <a href="contact.html" class="nav-item nav-link active">Contact</a>
       </div>
 
       <!-- 🔥 User Info + Logout -->
@@ -238,34 +241,48 @@
 <!-- Auth Handling Script -->
 <script>
   firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      // ✅ Show user info + logout
-      document.getElementById("logoutSection").style.display = "block";
-      document.getElementById("userEmail").textContent = user.displayName || user.email || "User";
-
-      // ✅ Hide Login/Signup when user is logged in
-      document.getElementById("loginLink").style.display = "none";
-      document.getElementById("signupLink").style.display = "none";
-
-    } else {
-      // ✅ Hide logout section
-      document.getElementById("logoutSection").style.display = "none";
-      document.getElementById("userEmail").textContent = "";
-
-      // ✅ Show Login/Signup if not logged in
-      document.getElementById("loginLink").style.display = "block";
-      document.getElementById("signupLink").style.display = "block";
-
-      window.location.href = "login.html";
-    }
-  });
+      const logoutSection = document.getElementById("logoutSection");
+      const loginIcon = document.getElementById("loginIcon");
+      const userEmail = document.getElementById("userEmail");
+      const loginLink = document.getElementById("loginLink");
+      const signupLink = document.getElementById("signupLink");
+      const profileLink = document.getElementById("profileLink");
+      const changePasswordLink = document.getElementById("changePasswordLink");
+  
+      if (user) {
+        // ✅ User is logged in
+        if (logoutSection) logoutSection.style.display = "block";
+        if (loginIcon) loginIcon.style.display = "none";
+        if (userEmail) userEmail.textContent = user.displayName || user.email || "User";
+        if (loginLink) loginLink.style.display = "none";
+        if (signupLink) signupLink.style.display = "none";
+  
+        // ✅ Show Profile and Change Password
+        if (profileLink) profileLink.classList.remove("d-none");
+        if (changePasswordLink) changePasswordLink.classList.remove("d-none");
+  
+      } else {
+        // ❌ User not logged in
+        if (logoutSection) logoutSection.style.display = "none";
+        if (loginIcon) loginIcon.style.display = "inline-block";
+        if (userEmail) userEmail.textContent = "";
+        if (loginLink) loginLink.style.display = "block";
+        if (signupLink) signupLink.style.display = "block";
+  
+        // ❌ Hide Profile and Change Password
+        if (profileLink) profileLink.classList.add("d-none");
+        if (changePasswordLink) changePasswordLink.classList.add("d-none");
+  
+        window.location.href = "login.html";
+      }
+    });
 
   function logout() {
     firebase.auth().signOut().then(() => {
       alert("You have been logged out.");
       window.location.href = "login.html";
     }).catch((error) => {
-      alert("Error logging out: " + error.message);
+      alert("Logout error: " + error.message);
       console.error("Logout error:", error.message);
     });
   }

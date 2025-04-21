@@ -61,9 +61,10 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav ms-auto p-4 p-lg-0">
-            <a href="index.html" class="nav-item nav-link">Home</a>
+            <a href="index.html" class="nav-item nav-link active">Home</a>
             <a href="about.html" class="nav-item nav-link">About</a>
             <a href="courses.html" class="nav-item nav-link">Courses</a>
+            <a href="contact.html" class="nav-item nav-link">Contact</a>
 
             <!-- Pages Dropdown Start -->
             <div class="nav-item dropdown">
@@ -78,20 +79,21 @@
                     <a href="mcq.html" class="dropdown-item">MCQ</a>
                     <a href="login.html" class="dropdown-item" id="loginLink">Login</a>
                     <a href="signup.html" class="dropdown-item" id="signupLink">Signup</a>
+                    <!-- These show only when user is logged in -->
+                    <a href="profile.html" class="dropdown-item d-none" id="profileLink">Profile</a>
+                    <a href="change-password.html" class="dropdown-item d-none" id="changePasswordLink">Change Password</a>
                   </div>
             </div>
             <!-- Pages Dropdown End -->
 
-            <a href="contact.html" class="nav-item nav-link active">Contact</a>
-
             <!-- 🔥 User Info + Logout -->
-<div class="d-flex align-items-center px-4">
-    <span id="userEmail" class="me-3 fw-bold text-primary"></span>
-    <div id="logoutSection" style="display: none;">
-      <button onclick="logout()" class="btn btn-danger btn-sm">Logout</button>
-    </div>
-    <a href="login.html" id="loginIcon" class="ms-3 text-dark"><i class="fa fa-user"></i></a>
-  </div>
+            <div class="d-flex align-items-center px-4">
+            <span id="userEmail" class="me-3 fw-bold text-primary"></span>
+            <div id="logoutSection" style="display: none;">
+                <button onclick="logout()" class="btn btn-danger btn-sm">Logout</button>
+            </div>
+            <a href="login.html" id="loginIcon" class="ms-3 text-dark"><i class="fa fa-user"></i></a>
+            </div>
             <a href="#" class="nav-item nav-link">
                 <div id="google_translate_element"></div>
             </a>
@@ -1032,43 +1034,53 @@
 
 <!-- Firebase Auth -->
 <script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyD--1XDaixtr_9rWYc0fIPZX0LIs74dueE",
-    authDomain: "codex-container.firebaseapp.com",
-    projectId: "codex-container",
-    storageBucket: "codex-container.appspot.com",
-    messagingSenderId: "710571866354",
-    appId: "1:710571866354:web:b35b3e3fdadfcb5b315e62",
-    measurementId: "G-YBXX3W90W9"
-  };
-  firebase.initializeApp(firebaseConfig);
-
-  firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      // ✅ User is logged in
-      document.getElementById("logoutSection").style.display = "block";
-      document.getElementById("loginIcon").style.display = "none";
-      document.getElementById("userEmail").textContent = user.displayName || user.email || "User";
-
-      // ✅ Hide Login/Signup
+    const firebaseConfig = {
+      apiKey: "AIzaSyD--1XDaixtr_9rWYc0fIPZX0LIs74dueE",
+      authDomain: "codex-container.firebaseapp.com",
+      projectId: "codex-container",
+      storageBucket: "codex-container.appspot.com",
+      messagingSenderId: "710571866354",
+      appId: "1:710571866354:web:b35b3e3fdadfcb5b315e62",
+      measurementId: "G-YBXX3W90W9"
+    };
+    firebase.initializeApp(firebaseConfig);
+  
+    firebase.auth().onAuthStateChanged(function(user) {
+      const logoutSection = document.getElementById("logoutSection");
+      const loginIcon = document.getElementById("loginIcon");
+      const userEmail = document.getElementById("userEmail");
       const loginLink = document.getElementById("loginLink");
       const signupLink = document.getElementById("signupLink");
-      if (loginLink) loginLink.style.display = "none";
-      if (signupLink) signupLink.style.display = "none";
-    } else {
-      // ❌ Not logged in
-      document.getElementById("logoutSection").style.display = "none";
-      document.getElementById("loginIcon").style.display = "inline-block";
-      document.getElementById("userEmail").textContent = "";
-
-      const loginLink = document.getElementById("loginLink");
-      const signupLink = document.getElementById("signupLink");
-      if (loginLink) loginLink.style.display = "block";
-      if (signupLink) signupLink.style.display = "block";
-
-      window.location.href = "login.html";
-    }
-  });
+      const profileLink = document.getElementById("profileLink");
+      const changePasswordLink = document.getElementById("changePasswordLink");
+  
+      if (user) {
+        // ✅ User is logged in
+        if (logoutSection) logoutSection.style.display = "block";
+        if (loginIcon) loginIcon.style.display = "none";
+        if (userEmail) userEmail.textContent = user.displayName || user.email || "User";
+        if (loginLink) loginLink.style.display = "none";
+        if (signupLink) signupLink.style.display = "none";
+  
+        // ✅ Show Profile and Change Password
+        if (profileLink) profileLink.classList.remove("d-none");
+        if (changePasswordLink) changePasswordLink.classList.remove("d-none");
+  
+      } else {
+        // ❌ User not logged in
+        if (logoutSection) logoutSection.style.display = "none";
+        if (loginIcon) loginIcon.style.display = "inline-block";
+        if (userEmail) userEmail.textContent = "";
+        if (loginLink) loginLink.style.display = "block";
+        if (signupLink) signupLink.style.display = "block";
+  
+        // ❌ Hide Profile and Change Password
+        if (profileLink) profileLink.classList.add("d-none");
+        if (changePasswordLink) changePasswordLink.classList.add("d-none");
+  
+        window.location.href = "login.html";
+      }
+    });
 
   function logout() {
     firebase.auth().signOut().then(() => {

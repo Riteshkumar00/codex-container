@@ -49,6 +49,7 @@
                 <a href="index.html" class="nav-item nav-link">Home</a>
                 <a href="about.html" class="nav-item nav-link active">About</a>
                 <a href="courses.html" class="nav-item nav-link">Courses</a>
+                <a href="contact.html" class="nav-item nav-link">Contact</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                     <!-- <div class="dropdown-menu fade-down m-0">
@@ -61,9 +62,11 @@
                         <a href="mcq.html" class="dropdown-item">MCQ</a>
                         <a href="login.html" class="dropdown-item" id="loginLink">Login</a>
                         <a href="signup.html" class="dropdown-item" id="signupLink">Signup</a>
+                        <!-- These show only when user is logged in -->
+                        <a href="profile.html" class="dropdown-item d-none" id="profileLink">Profile</a>
+                        <a href="change-password.html" class="dropdown-item d-none" id="changePasswordLink">Change Password</a>
                     </div>
                 </div>
-                <a href="contact.html" class="nav-item nav-link">Contact</a>
 
 <!-- 🔥 User Info + Logout -->
 <div class="d-flex align-items-center px-4">
@@ -273,6 +276,7 @@
 
 
     <!-- Firebase Auth -->
+     <!--
 <script>
   const firebaseConfig = {
     apiKey: "AIzaSyD--1XDaixtr_9rWYc0fIPZX0LIs74dueE",
@@ -310,7 +314,57 @@
 
       window.location.href = "login.html";
     }
-  });
+  });-->
+
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyD--1XDaixtr_9rWYc0fIPZX0LIs74dueE",
+      authDomain: "codex-container.firebaseapp.com",
+      projectId: "codex-container",
+      storageBucket: "codex-container.appspot.com",
+      messagingSenderId: "710571866354",
+      appId: "1:710571866354:web:b35b3e3fdadfcb5b315e62",
+      measurementId: "G-YBXX3W90W9"
+    };
+    firebase.initializeApp(firebaseConfig);
+  
+    firebase.auth().onAuthStateChanged(function(user) {
+      const logoutSection = document.getElementById("logoutSection");
+      const loginIcon = document.getElementById("loginIcon");
+      const userEmail = document.getElementById("userEmail");
+      const loginLink = document.getElementById("loginLink");
+      const signupLink = document.getElementById("signupLink");
+      const profileLink = document.getElementById("profileLink");
+      const changePasswordLink = document.getElementById("changePasswordLink");
+  
+      if (user) {
+        // ✅ User is logged in
+        if (logoutSection) logoutSection.style.display = "block";
+        if (loginIcon) loginIcon.style.display = "none";
+        if (userEmail) userEmail.textContent = user.displayName || user.email || "User";
+        if (loginLink) loginLink.style.display = "none";
+        if (signupLink) signupLink.style.display = "none";
+  
+        // ✅ Show Profile and Change Password
+        if (profileLink) profileLink.classList.remove("d-none");
+        if (changePasswordLink) changePasswordLink.classList.remove("d-none");
+  
+      } else {
+        // ❌ User not logged in
+        if (logoutSection) logoutSection.style.display = "none";
+        if (loginIcon) loginIcon.style.display = "inline-block";
+        if (userEmail) userEmail.textContent = "";
+        if (loginLink) loginLink.style.display = "block";
+        if (signupLink) signupLink.style.display = "block";
+  
+        // ❌ Hide Profile and Change Password
+        if (profileLink) profileLink.classList.add("d-none");
+        if (changePasswordLink) changePasswordLink.classList.add("d-none");
+  
+        window.location.href = "login.html";
+      }
+    });
 
   function logout() {
     firebase.auth().signOut().then(() => {
