@@ -998,41 +998,6 @@
 <!-- Firebase Auth -->
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-<!--<script>
-    const firebaseConfig = {
-  apiKey: "AIzaSyD--1XDaixtr_9rWYc0fIPZX0LIs74dueE",
-  authDomain: "codex-container.firebaseapp.com",
-  projectId: "codex-container",
-  storageBucket: "codex-container.appspot.com",
-  messagingSenderId: "710571866354",
-  appId: "1:710571866354:web:b35b3e3fdadfcb5b315e62",
-  measurementId: "G-YBXX3W90W9"
-    };
-    firebase.initializeApp(firebaseConfig);
-
-    firebase.auth().onAuthStateChanged(function (user) {
-        if (user) {
-            document.getElementById("logoutSection").style.display = "block";
-            document.getElementById("loginIcon").style.display = "none";
-            document.getElementById("userEmail").textContent = user.displayName || user.email || "User";
-        } else {
-            document.getElementById("logoutSection").style.display = "none";
-            document.getElementById("loginIcon").style.display = "inline-block";
-            document.getElementById("userEmail").textContent = "";
-        }
-    });
-
-    function logout() {
-        firebase.auth().signOut().then(() => {
-            alert("You have been logged out.");
-            window.location.href = "login.html";
-        }).catch((error) => {
-            alert("Logout error: " + error.message);
-        });
-    }
-</script> -->
-
-<!-- Firebase Auth -->
 <script>
     const firebaseConfig = {
       apiKey: "AIzaSyD--1XDaixtr_9rWYc0fIPZX0LIs74dueE",
@@ -1045,42 +1010,42 @@
     };
     firebase.initializeApp(firebaseConfig);
   
-    firebase.auth().onAuthStateChanged(function(user) {
-      const logoutSection = document.getElementById("logoutSection");
-      const loginIcon = document.getElementById("loginIcon");
-      const userEmail = document.getElementById("userEmail");
-      const loginLink = document.getElementById("loginLink");
-      const signupLink = document.getElementById("signupLink");
-      const profileLink = document.getElementById("profileLink");
-      const changePasswordLink = document.getElementById("changePasswordLink");
-  
-      if (user) {
-        // ✅ User is logged in
-        if (logoutSection) logoutSection.style.display = "block";
-        if (loginIcon) loginIcon.style.display = "none";
-        if (userEmail) userEmail.textContent = user.displayName || user.email || "User";
-        if (loginLink) loginLink.style.display = "none";
-        if (signupLink) signupLink.style.display = "none";
-  
-        // ✅ Show Profile and Change Password
-        if (profileLink) profileLink.classList.remove("d-none");
-        if (changePasswordLink) changePasswordLink.classList.remove("d-none");
-  
-      } else {
-        // ❌ User not logged in
-        if (logoutSection) logoutSection.style.display = "none";
-        if (loginIcon) loginIcon.style.display = "inline-block";
-        if (userEmail) userEmail.textContent = "";
-        if (loginLink) loginLink.style.display = "block";
-        if (signupLink) signupLink.style.display = "block";
-  
-        // ❌ Hide Profile and Change Password
-        if (profileLink) profileLink.classList.add("d-none");
-        if (changePasswordLink) changePasswordLink.classList.add("d-none");
-  
-        window.location.href = "login.html";
+    <!-- Auth Handling Script -->
+
+  firebase.auth().onAuthStateChanged(function(user) {
+    const logoutSection = document.getElementById("logoutSection");
+    const loginIcon = document.getElementById("loginIcon");
+    const userEmail = document.getElementById("userEmail");
+    const loginLink = document.getElementById("loginLink");
+    const signupLink = document.getElementById("signupLink");
+    const profileLink = document.getElementById("profileLink");
+    const changePasswordLink = document.getElementById("changePasswordLink");
+
+    const currentPage = window.location.pathname.split("/").pop();
+    const isProtectedPage = !["contact.html", "index.html", "about.html", "courses.html"].includes(currentPage);
+
+    if (user) {
+      if (logoutSection) logoutSection.style.display = "block";
+      if (loginIcon) loginIcon.style.display = "none";
+      if (userEmail) userEmail.textContent = user.displayName || user.email || "User";
+      if (loginLink) loginLink.style.display = "none";
+      if (signupLink) signupLink.style.display = "none";
+      if (profileLink) profileLink.classList.remove("d-none");
+      if (changePasswordLink) changePasswordLink.classList.remove("d-none");
+    } else {
+      if (logoutSection) logoutSection.style.display = "none";
+      if (loginIcon) loginIcon.style.display = "inline-block";
+      if (userEmail) userEmail.textContent = "";
+      if (loginLink) loginLink.style.display = "block";
+      if (signupLink) signupLink.style.display = "block";
+      if (profileLink) profileLink.classList.add("d-none");
+      if (changePasswordLink) changePasswordLink.classList.add("d-none");
+
+      if (isProtectedPage) {
+        window.location.href = "login.html"; // 🔐 Only redirect if needed
       }
-    });
+    }
+  });
 
   function logout() {
     firebase.auth().signOut().then(() => {
@@ -1091,6 +1056,7 @@
       console.error("Logout error:", error.message);
     });
   }
+
 </script>
 
   
